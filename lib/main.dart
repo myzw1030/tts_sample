@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tts_sample/text_to_speech.dart';
 
-void main() async {
+void main() {
   // Flutterフレームワークの初期化
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
@@ -31,7 +31,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // テキストフィールドのコントローラーを作成
-  TextEditingController textController = TextEditingController();
+  late TextEditingController textController = TextEditingController();
 
   @override
   void initState() {
@@ -60,11 +60,16 @@ class _HomePageState extends State<HomePage> {
             ),
             child: TextField(
               controller: textController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+              ),
             ),
           ),
           ElevatedButton(
             onPressed: () {
+              // テキスト読み上げ
               TextToSpeech.speak(textController.text);
+              // フォーカス解除
               primaryFocus?.unfocus();
             },
             child: const Text('Speak'),

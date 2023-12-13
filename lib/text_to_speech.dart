@@ -17,14 +17,17 @@ class TextToSpeech {
     // テキスト読み上げが完了するのを待機するかどうかを制御する
     await tts.awaitSpeakCompletion(true);
 
+    // テキストの読み上げが開始したときに呼び出される
     tts.setStartHandler(() {
       print("TTS STARTED");
     });
 
+    // テキストの読み上げが完了したときに呼び出される
     tts.setCompletionHandler(() {
       print("COMPLETED");
     });
 
+    // エラーが発生したときに呼び出される
     tts.setErrorHandler((message) {
       print(message);
     });
@@ -33,11 +36,11 @@ class TextToSpeech {
   // テキストを音声に変換して再生する
   static Future<void> speak(String text) async {
     if (text.isNotEmpty) {
-      print(text);
       await tts.speak(text);
     }
   }
 
+  // テキスト読み上げを停止
   static void dispose() {
     tts.stop();
   }
